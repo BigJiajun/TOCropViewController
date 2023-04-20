@@ -207,6 +207,7 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     if (self.navigationController == nil) {
         [self.cropView setBackgroundImageViewHidden:NO animated:animated];
     }
+    [self setAspectRatioPreset:TOCropViewControllerAspectRatioPresetSquare animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

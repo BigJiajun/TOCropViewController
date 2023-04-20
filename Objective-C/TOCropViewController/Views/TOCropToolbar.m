@@ -72,12 +72,15 @@
     
     _doneTextButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [_doneTextButton setTitle: _doneTextButtonTitle ?
-        _doneTextButtonTitle : NSLocalizedStringFromTableInBundle(@"Done",
+        _doneTextButtonTitle : NSLocalizedStringFromTableInBundle(@"  Done  ",
 																  @"TOCropViewControllerLocalizable",
 																  resourceBundle,
                                                                   nil)
                      forState:UIControlStateNormal];
-    [_doneTextButton setTitleColor:[UIColor colorWithRed:1.0f green:0.8f blue:0.0f alpha:1.0f] forState:UIControlStateNormal];
+    [_doneTextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _doneTextButton.layer.cornerRadius = 5;
+    _doneTextButton.layer.masksToBounds = YES;
+    [_doneTextButton setBackgroundColor:[UIColor colorWithRed:0.137 green:0.471 blue:0.898 alpha:1.0]];
     if (@available(iOS 13.0, *)) {
         [_doneTextButton.titleLabel setFont:[UIFont systemFontOfSize:17.0f weight:UIFontWeightMedium]];
     } else {
@@ -105,6 +108,7 @@
                                                                     nil)
                        forState:UIControlStateNormal];
     [_cancelTextButton.titleLabel setFont:[UIFont systemFontOfSize:17.0f]];
+    [_cancelTextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_cancelTextButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [_cancelTextButton sizeToFit];
     [self addSubview:_cancelTextButton];
@@ -115,11 +119,12 @@
     [self addSubview:_cancelIconButton];
     
     _clampButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _clampButton.contentMode = UIViewContentModeCenter;
-    _clampButton.tintColor = [UIColor whiteColor];
-    [_clampButton setImage:[TOCropToolbar clampImage] forState:UIControlStateNormal];
-    [_clampButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_clampButton];
+    [_clampButton setHidden:YES];
+//    _clampButton.contentMode = UIViewContentModeCenter;
+//    _clampButton.tintColor = [UIColor whiteColor];
+//    [_clampButton setImage:[TOCropToolbar clampImage] forState:UIControlStateNormal];
+//    [_clampButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:_clampButton];
     
     _rotateCounterclockwiseButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _rotateCounterclockwiseButton.contentMode = UIViewContentModeCenter;
@@ -129,11 +134,12 @@
     [self addSubview:_rotateCounterclockwiseButton];
     
     _rotateClockwiseButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _rotateClockwiseButton.contentMode = UIViewContentModeCenter;
-    _rotateClockwiseButton.tintColor = [UIColor whiteColor];
-    [_rotateClockwiseButton setImage:[TOCropToolbar rotateCWImage] forState:UIControlStateNormal];
-    [_rotateClockwiseButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_rotateClockwiseButton];
+    [_rotateClockwiseButton setHidden:YES];
+//    _rotateClockwiseButton.contentMode = UIViewContentModeCenter;
+//    _rotateClockwiseButton.tintColor = [UIColor whiteColor];
+//    [_rotateClockwiseButton setImage:[TOCropToolbar rotateCWImage] forState:UIControlStateNormal];
+//    [_rotateClockwiseButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:_rotateClockwiseButton];
     
     _resetButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _resetButton.contentMode = UIViewContentModeCenter;
@@ -235,13 +241,13 @@
             [buttonsInOrderHorizontally addObject:self.resetButton];
         }
         
-        if (!self.clampButtonHidden) {
-            [buttonsInOrderHorizontally addObject:self.clampButton];
-        }
-        
-        if (!self.rotateClockwiseButtonHidden) {
-            [buttonsInOrderHorizontally addObject:self.rotateClockwiseButton];
-        }
+//        if (!self.clampButtonHidden) {
+//            [buttonsInOrderHorizontally addObject:self.clampButton];
+//        }
+//
+//        if (!self.rotateClockwiseButtonHidden) {
+//            [buttonsInOrderHorizontally addObject:self.rotateClockwiseButton];
+//        }
         [self layoutToolbarButtons:buttonsInOrderHorizontally withSameButtonSize:buttonSize inContainerRect:containerRect horizontally:YES];
     }
     else {
@@ -344,10 +350,10 @@
 }
 
 - (void)setClampButtonHidden:(BOOL)clampButtonHidden {
-    if (_clampButtonHidden == clampButtonHidden)
-        return;
-    
-    _clampButtonHidden = clampButtonHidden;
+//    if (_clampButtonHidden == clampButtonHidden)
+//        return;
+//
+//    _clampButtonHidden = clampButtonHidden;
     [self setNeedsLayout];
 }
 
@@ -417,40 +423,40 @@
     [self setNeedsLayout];
 }
 
-- (void)setCancelTextButtonTitle:(NSString *)cancelTextButtonTitle {
-    _cancelTextButtonTitle = cancelTextButtonTitle;
-    [_cancelTextButton setTitle:_cancelTextButtonTitle forState:UIControlStateNormal];
-    [_cancelTextButton sizeToFit];
-}
-
-- (void)setDoneTextButtonTitle:(NSString *)doneTextButtonTitle {
-    _doneTextButtonTitle = doneTextButtonTitle;
-    [_doneTextButton setTitle:_doneTextButtonTitle forState:UIControlStateNormal];
-    [_doneTextButton sizeToFit];
-}
-
-- (void)setCancelButtonColor:(UIColor *)cancelButtonColor {
-    // Default color is app tint color
-    if (cancelButtonColor == _cancelButtonColor) { return; }
-    _cancelButtonColor = cancelButtonColor;
-    [_cancelTextButton setTitleColor:_cancelButtonColor forState:UIControlStateNormal];
-    [_cancelIconButton setTintColor:_cancelButtonColor];
-    [_cancelTextButton sizeToFit];
-}
-
-- (void)setDoneButtonColor:(UIColor *)doneButtonColor {
-    // Set the default color when nil is specified
-    if (doneButtonColor == nil) {
-        doneButtonColor = [UIColor colorWithRed:1.0f green:0.8f blue:0.0f alpha:1.0f];
-    }
-
-    if (doneButtonColor == _doneButtonColor) { return; }
-
-    _doneButtonColor = doneButtonColor;
-    [_doneTextButton setTitleColor:_doneButtonColor forState:UIControlStateNormal];
-    [_doneIconButton setTintColor:_doneButtonColor];
-    [_doneTextButton sizeToFit];
-}
+//- (void)setCancelTextButtonTitle:(NSString *)cancelTextButtonTitle {
+//    _cancelTextButtonTitle = cancelTextButtonTitle;
+//    [_cancelTextButton setTitle:_cancelTextButtonTitle forState:UIControlStateNormal];
+//    [_cancelTextButton sizeToFit];
+//}
+//
+//- (void)setDoneTextButtonTitle:(NSString *)doneTextButtonTitle {
+//    _doneTextButtonTitle = doneTextButtonTitle;
+//    [_doneTextButton setTitle:_doneTextButtonTitle forState:UIControlStateNormal];
+//    [_doneTextButton sizeToFit];
+//}
+//
+//- (void)setCancelButtonColor:(UIColor *)cancelButtonColor {
+//    // Default color is app tint color
+//    if (cancelButtonColor == _cancelButtonColor) { return; }
+//    _cancelButtonColor = cancelButtonColor;
+//    [_cancelTextButton setTitleColor:_cancelButtonColor forState:UIControlStateNormal];
+//    [_cancelIconButton setTintColor:_cancelButtonColor];
+//    [_cancelTextButton sizeToFit];
+//}
+//
+//- (void)setDoneButtonColor:(UIColor *)doneButtonColor {
+//    // Set the default color when nil is specified
+//    if (doneButtonColor == nil) {
+//        doneButtonColor = [UIColor colorWithRed:1.0f green:0.8f blue:0.0f alpha:1.0f];
+//    }
+//
+//    if (doneButtonColor == _doneButtonColor) { return; }
+//
+//    _doneButtonColor = doneButtonColor;
+//    [_doneTextButton setTitleColor:_doneButtonColor forState:UIControlStateNormal];
+//    [_doneIconButton setTintColor:_doneButtonColor];
+//    [_doneTextButton sizeToFit];
+//}
 
 #pragma mark - Image Generation -
 + (UIImage *)doneImage
@@ -681,11 +687,11 @@
 
 - (void)setRotateClockwiseButtonHidden:(BOOL)rotateClockwiseButtonHidden
 {
-    if (_rotateClockwiseButtonHidden == rotateClockwiseButtonHidden) {
-        return;
-    }
-    
-    _rotateClockwiseButtonHidden = rotateClockwiseButtonHidden;
+//    if (_rotateClockwiseButtonHidden == rotateClockwiseButtonHidden) {
+//        return;
+//    }
+//
+//    _rotateClockwiseButtonHidden = rotateClockwiseButtonHidden;
     
     [self setNeedsLayout];
 }
