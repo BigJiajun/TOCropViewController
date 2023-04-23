@@ -423,18 +423,18 @@
     [self setNeedsLayout];
 }
 
-//- (void)setCancelTextButtonTitle:(NSString *)cancelTextButtonTitle {
-//    _cancelTextButtonTitle = cancelTextButtonTitle;
-//    [_cancelTextButton setTitle:_cancelTextButtonTitle forState:UIControlStateNormal];
-//    [_cancelTextButton sizeToFit];
-//}
-//
-//- (void)setDoneTextButtonTitle:(NSString *)doneTextButtonTitle {
-//    _doneTextButtonTitle = doneTextButtonTitle;
-//    [_doneTextButton setTitle:_doneTextButtonTitle forState:UIControlStateNormal];
-//    [_doneTextButton sizeToFit];
-//}
-//
+- (void)setCancelTextButtonTitle:(NSString *)cancelTextButtonTitle {
+    _cancelTextButtonTitle = cancelTextButtonTitle;
+    [_cancelTextButton setTitle:_cancelTextButtonTitle forState:UIControlStateNormal];
+    [_cancelTextButton sizeToFit];
+}
+
+- (void)setDoneTextButtonTitle:(NSString *)doneTextButtonTitle {
+    _doneTextButtonTitle = doneTextButtonTitle;
+    [_doneTextButton setTitle:_doneTextButtonTitle forState:UIControlStateNormal];
+    [_doneTextButton sizeToFit];
+}
+
 //- (void)setCancelButtonColor:(UIColor *)cancelButtonColor {
 //    // Default color is app tint color
 //    if (cancelButtonColor == _cancelButtonColor) { return; }
