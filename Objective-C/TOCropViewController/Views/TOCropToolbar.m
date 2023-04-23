@@ -72,7 +72,7 @@
     
     _doneTextButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [_doneTextButton setTitle: _doneTextButtonTitle ?
-        _doneTextButtonTitle : NSLocalizedStringFromTableInBundle(@"  Done  ",
+        _doneTextButtonTitle : NSLocalizedStringFromTableInBundle(@"Done",
 																  @"TOCropViewControllerLocalizable",
 																  resourceBundle,
                                                                   nil)
@@ -191,7 +191,7 @@
         // Work out the cancel button frame
         CGRect frame = CGRectZero;
         frame.size.height = 44.0f;
-        frame.size.width = _showOnlyIcons ? 44.0f : MIN(self.frame.size.width / 3.0, self.cancelTextButton.frame.size.width);
+        frame.size.width = _showOnlyIcons ? 44.0f : MIN(self.frame.size.width / 3.0, self.cancelTextButton.frame.size.width + 20);
 
         //If normal layout, place on the left side, else place on the right
         if (self.reverseContentLayout == NO) {
@@ -203,7 +203,7 @@
         (_showOnlyIcons ? self.cancelIconButton : self.cancelTextButton).frame = frame;
         
         // Work out the Done button frame
-        frame.size.width = _showOnlyIcons ? 44.0f : MIN(self.frame.size.width / 3.0, self.doneTextButton.frame.size.width);
+        frame.size.width = _showOnlyIcons ? 44.0f : MIN(self.frame.size.width / 3.0, self.doneTextButton.frame.size.width + 20);
         
         if (self.reverseContentLayout == NO) {
             frame.origin.x = boundsSize.width - (frame.size.width + insetPadding);
